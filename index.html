@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rémy Pelletier - Développeur full-stack à Nantes</title>
+  <meta name="description" content="Développeur React, Node.js et TypeScript à Nantes. Créateur de SplashMap, la carte du lavage auto en France.">
+  <link rel="icon" type="image/x-icon" href="/assets/projects/splashmap/favicon-rp.ico">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/projects/splashmap/favicon-rp.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    (function () {
+      var saved = localStorage.getItem("portfolio-theme");
+      var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+      document.documentElement.setAttribute("data-theme", saved || (prefersLight ? "light" : "dark"));
+    })();
+  </script>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="#accueil" class="nav-logo">RP</a>
+    <ul class="nav-links">
+      <li><a href="#accueil" class="nav-link active" data-section="accueil">Accueil</a></li>
+      <li><a href="#a-propos" class="nav-link" data-section="a-propos">À propos</a></li>
+      <li><a href="#projets" class="nav-link" data-section="projets">Projets</a></li>
+      <li><a href="#en-cours" class="nav-link" data-section="en-cours">En ce moment</a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Basculer le mode sombre/clair">
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+
+    <section id="accueil" class="section section--accueil">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="cursor-dot" id="heroCursorDot" aria-hidden="true"></div>
+
+      <div class="section__content hero-inner">
+        <div class="hero-text">
+          <img class="hero-photo" src="/assets/projects/splashmap/profil.jpeg" alt="Photo de Rémy Pelletier" width="400" height="400" loading="eager">
+          <p class="hero-eyebrow">Développeur full-stack - Nantes</p>
+          <h1 class="hero-title">Rémy Pelletier</h1>
+          <p class="hero-subtitle">Je conçois, développe et maintiens des applications web, de l'idée à la mise en production.</p>
+          <div class="hero-actions">
+            <a href="#projets" class="btn btn--primary">Mon portfolio</a>
+            <a href="#contact" class="btn btn--ghost">Me contacter</a>
+          </div>
+        </div>
+        <div class="hero-avatar">
+          <div class="hero-avatar__parallax">
+            <div class="shape-stage" aria-hidden="true">
+              <canvas class="morph3d" id="shapeCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#a-propos" class="scroll-indicator" aria-label="Défiler vers le bas">
+        <span></span>
+      </a>
+    </section>
+
+    <div class="stack-marquee" aria-label="Technologies que j'utilise">
+        <div class="marquee-track">
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/typescript.svg" alt="TypeScript" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">TypeScript</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/react.svg" alt="React" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">React</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/nextjs.svg" alt="Next.js" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Next.js</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/nodejs.svg" alt="Node.js" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Node.js</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/postgresql.svg" alt="PostgreSQL" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">PostgreSQL</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/supabase.svg" alt="Supabase" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Supabase</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/prisma.svg" alt="Prisma" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Prisma</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/mariadb.svg" alt="MariaDB" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">MariaDB</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/vitest.svg" alt="Vitest" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Vitest</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/githubactions.svg" alt="GitHub Actions" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">GitHub Actions</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/docker.svg" alt="Docker" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Docker</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/vercel.svg" alt="Vercel" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Vercel</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/sentry.svg" alt="Sentry" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Sentry</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/php.svg" alt="PHP" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">PHP</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/joomla.svg" alt="Joomla" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Joomla</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/expo.svg" alt="Expo" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Expo</span>
+          </div>
+        </div>
+        <div class="marquee-track" aria-hidden="true">
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/typescript.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">TypeScript</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/react.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">React</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/nextjs.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Next.js</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/nodejs.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Node.js</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/postgresql.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">PostgreSQL</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/supabase.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Supabase</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/prisma.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Prisma</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/mariadb.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">MariaDB</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/vitest.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Vitest</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/githubactions.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">GitHub Actions</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/docker.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Docker</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/vercel.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Vercel</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/sentry.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Sentry</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/php.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">PHP</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/joomla.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Joomla</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/expo.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Expo</span>
+          </div>
+        </div>
+    </div>
+
+    <section id="a-propos" class="section section--a-propos">
+      <div class="section__content about-inner">
+        <div class="about-text">
+          <span class="section-tag">01 - Profil</span>
+          <h2 class="section-title">À propos</h2>
+          <p class="section-text">
+            Développeur web depuis plus de 2,5 ans, je code principalement en JavaScript/TypeScript.
+            React pour le front, Node.js pour le back avec des compétences en PHP et en développement
+            mobile. Docker, CI/CD et SEO complètent ma pratique pour livrer des applications fiables de
+            bout en bout. J'intègre aujourd'hui l'IA à mon flux de travail quotidien pour améliorer ma productivité et la fiabilité de mes livraisons. Côté perso :
+            course à pied, jeux de société et side-projects web/mobiles.
+          </p>
+          <div class="skills">
+            <span class="skill">React</span>
+            <span class="skill">Node.js</span>
+            <span class="skill">TypeScript</span>
+            <span class="skill">Next.js</span>
+            <span class="skill">PHP</span>
+            <span class="skill">Docker</span>
+            <span class="skill">CI/CD</span>
+            <span class="skill">SEO</span>
+            <span class="skill">Mobile</span>
+          </div>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat-card stat-card--1">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="7" width="18" height="12" rx="2"></rect>
+                <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-value">2,5+ ans</span>
+              <span class="stat-label">d'expérience en entreprise</span>
+            </div>
+          </div>
+
+          <div class="stat-card stat-card--2">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-value">3 ans</span>
+              <span class="stat-label">de formation</span>
+            </div>
+          </div>
+
+          <div class="stat-card stat-card--3">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                <line x1="8" y1="2" x2="8" y2="18"></line>
+                <line x1="16" y1="6" x2="16" y2="22"></line>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-value">10+ ans</span>
+              <span class="stat-label">d'intérêt pour le métier</span>
+            </div>
+          </div>
+
+          <div class="stat-card stat-card--4">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 21s7-7.58 7-12A7 7 0 0 0 5 9c0 4.42 7 12 7 12z"></path>
+                <circle cx="12" cy="9" r="2.5"></circle>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-value">Nantes</span>
+              <span class="stat-label">et périphérie</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projets" class="section section--projets">
+      <div class="hero-pattern hero-pattern--mirror" aria-hidden="true"></div>
+      <div class="section__content">
+        <span class="section-tag">02 - Portfolio</span>
+        <h2 class="section-title">Projets</h2>
+
+        <article class="featured-project">
+          <div class="featured-project__media">
+            <img
+              src="/assets/projects/splashmap/mockup-devices.webp"
+              alt="SplashMap sur ordinateur portable et sur mobile : la carte des stations de lavage autour de Nantes, avec la liste des résultats et les filtres"
+              width="1402"
+              height="1122"
+              loading="lazy"
+              class="featured-project__mockup"
+            >
+          </div>
+
+          <div class="featured-project__content">
+            <span class="featured-project__badge">
+              <span class="featured-project__badge-dot" aria-hidden="true"></span>
+              En production
+            </span>
+            <h3 class="featured-project__title">SplashMap - tout le lavage auto, sur une seule carte</h3>
+            <p class="featured-project__desc">
+              En collaboration avec un designer, j'ai réalisé toute la partie technique : données,
+              recherche cartographique avec filtres, contributions communautaires, sécurité, SEO, RGPD et mise en production.
+            </p>
+            <ul class="featured-project__highlights">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
+                Recherche géographique centralisée via une RPC PostGIS
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
+                Système de contributions communautaires : avis, signalements, nouveaux points
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
+                Sécurité : politiques RLS et limitation des requêtes API
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
+                Tests Vitest sur les fonctionnalités clés, CI/CD GitHub Actions et déploiement sur Vercel
+              </li>
+            </ul>
+            <p class="featured-project__challenge">
+              <strong>Le défi :</strong> constituer puis fiabiliser un référentiel national. Une extension
+              Chrome dédiée accélère la vérification des équipements, station par station.
+            </p>
+            <div class="featured-project__stack">
+              <span class="tech-tag">Next.js</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Supabase</span>
+              <span class="tech-tag">PostGIS</span>
+              <span class="tech-tag">MapLibre</span>
+            </div>
+            <div class="featured-project__links">
+              <a href="https://splashmap.fr/" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Consulter SplashMap</a>
+              <button type="button" class="project-card__link" data-project="splashmap">Voir les détails →</button>
+            </div>
+          </div>
+        </article>
+
+        <div class="projects-grid">
+          <article class="project-card" data-project="hautier-intranet" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Voir les détails de l'intranet métier React / Node.js">
+            <svg class="project-card__preview" viewBox="0 0 400 220" aria-hidden="true" focusable="false">
+              <rect class="pv-panel" x="14" y="16" width="88" height="188" rx="9"></rect>
+              <rect class="pv-accent" x="30" y="34" width="46" height="8" rx="4"></rect>
+              <rect class="pv-line" x="30" y="58" width="56" height="6" rx="3"></rect>
+              <rect class="pv-line" x="30" y="78" width="48" height="6" rx="3"></rect>
+              <rect class="pv-line" x="30" y="98" width="54" height="6" rx="3"></rect>
+              <rect class="pv-line" x="30" y="118" width="40" height="6" rx="3"></rect>
+
+              <rect class="pv-panel" x="114" y="16" width="272" height="188" rx="9"></rect>
+              <rect class="pv-accent-soft" x="130" y="32" width="72" height="40" rx="7"></rect>
+              <rect class="pv-inset" x="212" y="32" width="72" height="40" rx="7"></rect>
+              <rect class="pv-inset" x="294" y="32" width="76" height="40" rx="7"></rect>
+              <rect class="pv-line" x="130" y="94" width="240" height="7" rx="3.5"></rect>
+              <rect class="pv-line" x="130" y="116" width="196" height="7" rx="3.5"></rect>
+              <rect class="pv-line" x="130" y="138" width="226" height="7" rx="3.5"></rect>
+              <rect class="pv-line" x="130" y="160" width="168" height="7" rx="3.5"></rect>
+              <rect class="pv-line" x="130" y="182" width="212" height="7" rx="3.5"></rect>
+            </svg>
+            <span class="project-card__type">Groupe Hautier · 60 % du temps</span>
+            <h3 class="project-title">Intranet métier React / Node.js</h3>
+            <p class="project-desc">
+              Création de l'outil central du groupe - gestion de parc, sinistres et données
+              de transport, modules de comptabilité, gestion de document - utilisé par environ 40 personnes dans 6 agences en France.
+            </p>
+            <div class="project-card__stack">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Prisma</span>
+              <span class="tech-tag">MariaDB</span>
+            </div>
+            <span class="project-card__link" aria-hidden="true">Voir les détails →</span>
+          </article>
+
+          <article class="project-card" data-project="hautier-mobile" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Voir les détails de l'application mobile groupe">
+            <svg class="project-card__preview" viewBox="0 0 400 220" aria-hidden="true" focusable="false">
+              <rect class="pv-inset pv-outline" x="52" y="40" width="96" height="150" rx="12"></rect>
+              <rect class="pv-line" x="72" y="58" width="56" height="6" rx="3"></rect>
+              <rect class="pv-line" x="72" y="78" width="44" height="6" rx="3"></rect>
+              <rect class="pv-line" x="72" y="98" width="52" height="6" rx="3"></rect>
+
+              <rect class="pv-panel pv-outline" x="152" y="16" width="118" height="188" rx="18"></rect>
+              <rect class="pv-line" x="196" y="28" width="30" height="5" rx="2.5"></rect>
+              <rect class="pv-accent" x="166" y="46" width="90" height="34" rx="7"></rect>
+              <rect class="pv-inset" x="166" y="92" width="90" height="26" rx="6"></rect>
+              <rect class="pv-line" x="176" y="102" width="52" height="6" rx="3"></rect>
+              <rect class="pv-inset" x="166" y="126" width="90" height="26" rx="6"></rect>
+              <rect class="pv-line" x="176" y="136" width="64" height="6" rx="3"></rect>
+              <rect class="pv-accent-soft" x="166" y="160" width="90" height="26" rx="6"></rect>
+
+              <rect class="pv-inset pv-outline" x="274" y="40" width="96" height="150" rx="12"></rect>
+              <rect class="pv-line" x="294" y="58" width="56" height="6" rx="3"></rect>
+              <rect class="pv-line" x="294" y="78" width="48" height="6" rx="3"></rect>
+              <rect class="pv-line" x="294" y="98" width="40" height="6" rx="3"></rect>
+            </svg>
+            <span class="project-card__type">Groupe Hautier · 20 % du temps</span>
+            <h3 class="project-title">Application mobile groupe</h3>
+            <p class="project-desc">
+              Actualités du groupe, demandes de réparation et signalement d'incidents, pour les
+              conducteurs comme pour les sédentaires des 6 agences.
+            </p>
+            <div class="project-card__stack">
+              <span class="tech-tag">Ionic</span>
+              <span class="tech-tag">Angular</span>
+              <span class="tech-tag">Capacitor</span>
+            </div>
+            <span class="project-card__link" aria-hidden="true">Voir les détails →</span>
+          </article>
+
+          <article class="project-card" data-project="hautier-php" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Voir les détails de l'intranet historique PHP">
+            <svg class="project-card__preview" viewBox="0 0 400 220" aria-hidden="true" focusable="false">
+              <rect class="pv-panel" x="14" y="16" width="372" height="188" rx="9"></rect>
+              <path class="pv-divider" d="M14 54 H386"></path>
+              <rect class="pv-accent" x="30" y="30" width="40" height="10" rx="5"></rect>
+              <rect class="pv-line" x="82" y="31" width="34" height="8" rx="4"></rect>
+              <rect class="pv-line" x="128" y="31" width="34" height="8" rx="4"></rect>
+              <rect class="pv-line" x="174" y="31" width="34" height="8" rx="4"></rect>
+
+              <rect class="pv-inset" x="30" y="72" width="88" height="116" rx="7"></rect>
+              <rect class="pv-line" x="42" y="86" width="60" height="6" rx="3"></rect>
+              <rect class="pv-line" x="42" y="104" width="48" height="6" rx="3"></rect>
+              <rect class="pv-line" x="42" y="122" width="56" height="6" rx="3"></rect>
+              <rect class="pv-line" x="42" y="140" width="44" height="6" rx="3"></rect>
+
+              <rect class="pv-line" x="134" y="76" width="180" height="8" rx="4"></rect>
+              <rect class="pv-inset" x="134" y="98" width="236" height="42" rx="7"></rect>
+              <rect class="pv-line" x="134" y="152" width="220" height="6" rx="3"></rect>
+              <rect class="pv-line" x="134" y="170" width="184" height="6" rx="3"></rect>
+            </svg>
+            <span class="project-card__type">Groupe Hautier · 20 % du temps</span>
+            <h3 class="project-title">Intranet historique PHP</h3>
+            <p class="project-desc">
+              Le complément direct de l'application mobile, dont il expose l'API : actualités,
+              demandes de réparation, administration, statistiques et exports Excel.
+            </p>
+            <div class="project-card__stack">
+              <span class="tech-tag">PHP 7</span>
+              <span class="tech-tag">MariaDB</span>
+            </div>
+            <span class="project-card__link" aria-hidden="true">Voir les détails →</span>
+          </article>
+
+          <article class="project-card" data-project="madintec" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Voir les détails du projet Madintec">
+            <svg class="project-card__preview" viewBox="0 0 400 220" aria-hidden="true" focusable="false">
+              <defs>
+                <clipPath id="pvMapClip">
+                  <rect x="14" y="16" width="372" height="188" rx="9"></rect>
+                </clipPath>
+              </defs>
+              <rect class="pv-panel" x="14" y="16" width="372" height="188" rx="9"></rect>
+              <g clip-path="url(#pvMapClip)">
+                <path class="pv-contour" d="M14 84 C 78 62, 132 108, 196 88 S 320 58, 386 82"></path>
+                <path class="pv-contour" d="M14 130 C 88 112, 140 152, 210 134 S 330 106, 386 128"></path>
+                <path class="pv-contour" d="M96 16 C 108 68, 78 120, 104 204"></path>
+                <path class="pv-contour" d="M272 16 C 260 74, 296 128, 268 204"></path>
+                <path class="pv-route" d="M62 172 C 118 150, 142 92, 200 78 S 300 96, 344 52"></path>
+              </g>
+              <circle class="pv-accent" cx="62" cy="172" r="6"></circle>
+              <circle class="pv-accent" cx="200" cy="78" r="6"></circle>
+              <circle class="pv-accent" cx="344" cy="52" r="6"></circle>
+
+              <rect class="pv-inset pv-outline" x="248" y="126" width="122" height="62" rx="8"></rect>
+              <rect class="pv-line" x="260" y="138" width="42" height="5" rx="2.5"></rect>
+              <rect class="pv-line" x="260" y="164" width="11" height="14" rx="2"></rect>
+              <rect class="pv-line" x="278" y="156" width="11" height="22" rx="2"></rect>
+              <rect class="pv-accent" x="296" y="150" width="11" height="28" rx="2"></rect>
+              <rect class="pv-line" x="314" y="160" width="11" height="18" rx="2"></rect>
+              <rect class="pv-line" x="332" y="152" width="11" height="26" rx="2"></rect>
+            </svg>
+            <span class="project-card__type">Stage développeur full-stack · 2020</span>
+            <h3 class="project-title">Madintec</h3>
+            <p class="project-desc">
+              Téléversement de fichiers de navigation traités par des fonctions serverless en Go,
+              puis consultés par les clients via un plugin Grafana (carte Leaflet) que j'ai développé.
+            </p>
+            <div class="project-card__stack">
+              <span class="tech-tag">Next.js</span>
+              <span class="tech-tag">NestJS</span>
+              <span class="tech-tag">Go</span>
+              <span class="tech-tag">Grafana</span>
+              <span class="tech-tag">Leaflet</span>
+            </div>
+            <span class="project-card__link" aria-hidden="true">Voir les détails →</span>
+          </article>
+
+          <article class="project-card" data-project="feedly" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Voir les détails du projet Feedly to Notion">
+            <svg class="project-card__preview" viewBox="0 0 400 220" aria-hidden="true" focusable="false">
+              <rect class="pv-panel pv-outline" x="18" y="30" width="146" height="160" rx="10"></rect>
+              <path class="pv-divider" d="M18 58 H164"></path>
+              <circle class="pv-accent" cx="34" cy="44" r="5"></circle>
+              <rect class="pv-line" x="48" y="41" width="52" height="6" rx="3"></rect>
+              <rect class="pv-inset" x="32" y="72" width="118" height="40" rx="7"></rect>
+              <rect class="pv-line" x="42" y="82" width="76" height="6" rx="3"></rect>
+              <rect class="pv-line" x="42" y="96" width="98" height="5" rx="2.5"></rect>
+              <rect class="pv-line" x="32" y="126" width="118" height="6" rx="3"></rect>
+              <rect class="pv-accent" x="32" y="150" width="118" height="24" rx="6"></rect>
+
+              <path class="pv-route" d="M176 110 H222"></path>
+              <path class="pv-arrow" d="M216 102 L228 110 L216 118"></path>
+
+              <rect class="pv-panel pv-outline" x="240" y="30" width="142" height="160" rx="10"></rect>
+              <rect class="pv-line" x="256" y="48" width="62" height="8" rx="4"></rect>
+              <path class="pv-divider" d="M256 70 H366"></path>
+              <rect class="pv-accent-soft" x="256" y="84" width="14" height="14" rx="4"></rect>
+              <rect class="pv-line" x="278" y="88" width="76" height="6" rx="3"></rect>
+              <rect class="pv-accent-soft" x="256" y="112" width="14" height="14" rx="4"></rect>
+              <rect class="pv-line" x="278" y="116" width="62" height="6" rx="3"></rect>
+              <rect class="pv-inset" x="256" y="140" width="14" height="14" rx="4"></rect>
+              <rect class="pv-line" x="278" y="144" width="84" height="6" rx="3"></rect>
+            </svg>
+            <span class="project-card__type">Projet personnel · Code public</span>
+            <h3 class="project-title">Feedly to Notion</h3>
+            <p class="project-desc">
+              Extension Chrome pour récupérer le titre et l'URL d'un article Feedly, puis les envoyer
+              vers une base Notion. Un petit outil personnel pour centraliser ma veille technique.
+            </p>
+            <div class="project-card__stack">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Chrome Extensions</span>
+              <span class="tech-tag">Notion API</span>
+            </div>
+            <span class="project-card__link" aria-hidden="true">Voir le projet →</span>
+          </article>
+        </div>
+
+        <aside class="github-cta">
+          <span class="github-cta__icon" aria-hidden="true">
+            <img src="/icons/github.svg" alt="" width="28" height="28" class="github-cta__logo">
+          </span>
+          <div class="github-cta__body">
+            <h3 class="github-cta__title">Consulter mes autres projets sur GitHub</h3>
+            <p class="github-cta__text">
+              Code source, expérimentations et side projects.
+            </p>
+          </div>
+          <a href="https://github.com/remypelletier" target="_blank" rel="noopener noreferrer" class="btn btn--primary github-cta__link">
+            Voir mon GitHub
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="en-cours" class="section section--en-cours">
+      <div class="section__content">
+        <span class="section-tag">03 - En ce moment</span>
+        <h2 class="section-title">Mes projets en cours</h2>
+        <p class="section-text">
+          Ce que je fais en ce moment en dehors des projets livrés.
+        </p>
+
+        <div class="now-grid">
+          <article class="now-card">
+            <span class="now-card__label">
+              <span class="now-card__pulse" aria-hidden="true"></span>
+              Projet en cours
+            </span>
+            <h3 class="now-card__title">Application mobile SplashMap</h3>
+            <p class="now-card__text">
+              Porter SplashMap sur mobile, après la stabilisation du produit web : retrouver la carte,
+              la recherche et les contributions dans une application native.
+            </p>
+            <div class="now-card__stack">
+              <span class="tech-tag">Expo</span>
+              <span class="tech-tag">React Native</span>
+              <span class="tech-tag">Supabase</span>
+            </div>
+          </article>
+
+          <article class="now-card">
+            <span class="now-card__label">
+              <span class="now-card__pulse" aria-hidden="true"></span>
+              En apprentissage
+            </span>
+            <h3 class="now-card__title">Supabase &amp; Expo</h3>
+            <ul class="now-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
+                <span><strong>Supabase</strong> - continuer à explorer ses fonctionnalités et comment l'intégrer dans mes projets.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
+                <span><strong>Expo</strong> - l'écosystème React Native : build, mises à jour
+                et distribution d'une application.</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <dialog id="projectModal" class="project-modal">
+      <button type="button" class="project-modal__close" id="projectModalClose" aria-label="Fermer la fenêtre">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="project-modal__inner">
+        <div class="project-modal__media">
+          <div class="project-gallery" id="projectGallery" role="group" aria-roledescription="carrousel" aria-label="Images du projet" hidden>
+            <div class="browser-mock">
+              <div class="project-gallery__viewport">
+                <img class="project-gallery__image" id="projectGalleryImage" src="" alt="" loading="lazy">
+                <span class="project-gallery__counter" id="projectGalleryCounter"></span>
+                <button type="button" class="project-gallery__nav project-gallery__nav--prev" id="projectGalleryPrev" aria-label="Image précédente">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button type="button" class="project-gallery__nav project-gallery__nav--next" id="projectGalleryNext" aria-label="Image suivante">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <p class="project-gallery__caption" id="projectGalleryCaption"></p>
+            <div class="project-gallery__thumbs" id="projectGalleryThumbs"></div>
+            <p class="sr-only" id="projectGalleryLive" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="project-modal__placeholder" id="projectModalPlaceholder">
+            <div class="browser-mock">
+              <div class="browser-mock__bar">
+                <span class="browser-dot browser-dot--red"></span>
+                <span class="browser-dot browser-dot--yellow"></span>
+                <span class="browser-dot browser-dot--green"></span>
+              </div>
+              <div class="browser-mock__body">
+                <div class="browser-mock__sidebar">
+                  <span class="is-accent"></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="browser-mock__main">
+                  <span class="browser-mock__toolbar"></span>
+                  <div class="browser-mock__grid">
+                    <span class="browser-mock__card is-accent"></span>
+                    <span class="browser-mock__card"></span>
+                    <span class="browser-mock__card"></span>
+                    <span class="browser-mock__card"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span class="project-modal__badge" id="projectModalBadge"></span>
+        <h3 class="project-modal__title" id="projectModalTitle"></h3>
+
+        <div class="project-modal__meta" id="projectModalMeta"></div>
+
+        <p class="project-modal__desc" id="projectModalDesc"></p>
+
+        <h4 class="project-modal__subheading">Ce qui a été fait</h4>
+        <ul class="project-modal__highlights" id="projectModalHighlights"></ul>
+
+        <p class="project-modal__challenge" id="projectModalChallenge"></p>
+
+        <div class="project-modal__stack" id="projectModalStack"></div>
+
+        <div class="project-modal__links" id="projectModalLinks"></div>
+      </div>
+    </dialog>
+
+    <section id="contact" class="section section--contact">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="section__content">
+        <span class="section-tag">04 - Contact</span>
+        <h2 class="section-title">Vous recrutez un développeur full-stack autour de Nantes ?</h2>
+        <p class="section-text">
+          Échangeons sur votre produit, vos enjeux techniques et votre équipe.
+        </p>
+        <form class="contact-form" id="contactForm" action="/api/contact" method="POST" novalidate>
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Courriel</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY" data-theme="auto"></div>
+          <button type="submit" class="btn btn--primary">Envoyer le message</button>
+          <p class="form-note">Les informations envoyées servent uniquement à répondre à votre message.</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+name = "portfolio-2026"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+[[send_email]]
+name = "SEND_EMAIL"
+destination_address = "TON_ADRESSE_VERIFIEE@example.com"
+
+[vars]
+CONTACT_FROM = "contact@TONDOMAINE.com"
+CONTACT_DESTINATION = "TON_ADRESSE_VERIFIEE@example.com"
