@@ -1,6 +1,18 @@
 import { createMimeMessage } from "mimetext";
 
-export async function onRequestPost({ request, env }) {
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (request.method === "POST" && url.pathname === "/api/contact") {
+      return handleContact(request, env);
+    }
+
+    return env.ASSETS.fetch(request);
+  },
+};
+
+async function handleContact(request, env) {
   let body;
   try {
     body = await request.json();
@@ -26,7 +38,7 @@ export async function onRequestPost({ request, env }) {
   const humanVerified = await verifyTurnstile(
     turnstileToken,
     request.headers.get("CF-Connecting-IP"),
-    env.TURNSTILE_SECRET_KEY
+    env.TURNSTILE_SECRET
   );
   if (!humanVerified) {
     return jsonResponse({ error: "turnstile-failed" }, 403);

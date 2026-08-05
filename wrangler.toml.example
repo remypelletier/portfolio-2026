@@ -1,6 +1,11 @@
 name = "portfolio-2026"
 compatibility_date = "2025-01-01"
-pages_build_output_dir = "dist"
+compatibility_flags = ["nodejs_compat"]
+main = "worker/index.js"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
 
 [[send_email]]
 name = "SEND_EMAIL"
