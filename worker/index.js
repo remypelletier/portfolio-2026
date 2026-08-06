@@ -1,5 +1,3 @@
-import { createMimeMessage } from "mimetext";
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -79,15 +77,22 @@ async function verifyTurnstile(token, ip, secret) {
 }
 
 async function sendContactEmail(env, { name, email, message }) {
-  const { EmailMessage } = await import("cloudflare:email");
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: `Portfolio - Formulaire de contact <${env.CONTACT_FROM}>`,
+      to: [env.CONTACT_DESTINATION],
+      reply_to: email,
+      subject: `Nouveau message de ${name} (portfolio)`,
+      text: `${message}\n\n---\nDe : ${name} <${email}>`,
+    }),
+  });
 
-  const msg = createMimeMessage();
-  msg.setSender({ name: "Portfolio - Formulaire de contact", addr: env.CONTACT_FROM });
-  msg.setRecipient(env.CONTACT_DESTINATION);
-  msg.setHeader("Reply-To", email);
-  msg.setSubject(`Nouveau message de ${name} (portfolio)`);
-  msg.addMessage({ contentType: "text/plain", data: `${message}\n\n---\nDe : ${name} <${email}>` });
-
-  const emailMessage = new EmailMessage(env.CONTACT_FROM, env.CONTACT_DESTINATION, msg.asRaw());
-  await env.SEND_EMAIL.send(emailMessage);
+  if (!response.ok) {
+    throw new Error(`resend-error-${response.status}`);
+  }
 }

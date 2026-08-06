@@ -7,10 +7,6 @@ main = "worker/index.js"
 directory = "./dist"
 binding = "ASSETS"
 
-[[send_email]]
-name = "SEND_EMAIL"
-destination_address = "TON_ADRESSE_VERIFIEE@example.com"
-
 [vars]
 CONTACT_FROM = "contact@TONDOMAINE.com"
 CONTACT_DESTINATION = "TON_ADRESSE_VERIFIEE@example.com"

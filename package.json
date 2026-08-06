@@ -9,9 +9,6 @@
     "preview": "vite preview",
     "worker:dev": "vite build && wrangler dev"
   },
-  "dependencies": {
-    "mimetext": "^3.0.0"
-  },
   "devDependencies": {
     "vite": "^6.0.0",
     "wrangler": "^4.0.0"
