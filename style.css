@@ -1585,6 +1585,14 @@ img {
   border-color: var(--color-accent);
 }
 
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form-note {
   font-size: 0.8rem;
   color: var(--color-text-muted);

@@ -18,7 +18,11 @@ async function handleContact(request, env) {
     return jsonResponse({ error: "invalid-json" }, 400);
   }
 
-  const { name, email, message, turnstileToken } = body || {};
+  const { name, email, message, website } = body || {};
+
+  if (isNonEmptyString(website)) {
+    return jsonResponse({ ok: true }, 200);
+  }
 
   if (!isNonEmptyString(name) || name.length > 200) {
     return jsonResponse({ error: "invalid-name" }, 400);
@@ -28,18 +32,6 @@ async function handleContact(request, env) {
   }
   if (!isNonEmptyString(message) || message.length > 5000) {
     return jsonResponse({ error: "invalid-message" }, 400);
-  }
-  if (!isNonEmptyString(turnstileToken)) {
-    return jsonResponse({ error: "missing-turnstile" }, 400);
-  }
-
-  const humanVerified = await verifyTurnstile(
-    turnstileToken,
-    request.headers.get("CF-Connecting-IP"),
-    env.TURNSTILE_SECRET
-  );
-  if (!humanVerified) {
-    return jsonResponse({ error: "turnstile-failed" }, 403);
   }
 
   try {
@@ -64,16 +56,6 @@ function isNonEmptyString(value) {
 
 function isValidEmail(value) {
   return typeof value === "string" && value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
-async function verifyTurnstile(token, ip, secret) {
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ secret, response: token, remoteip: ip || undefined }),
-  });
-  const result = await response.json();
-  return result.success === true;
 }
 
 async function sendContactEmail(env, { name, email, message }) {

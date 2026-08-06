@@ -8,7 +8,6 @@
   <link rel="icon" type="image/x-icon" href="/assets/projects/splashmap/favicon-rp.ico">
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/projects/splashmap/favicon-rp.png">
   <link rel="stylesheet" href="style.css">
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     (function () {
       var saved = localStorage.getItem("portfolio-theme");
@@ -719,7 +718,10 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEHT5POaMN3E-xL_" data-theme="auto"></div>
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="website">Site web</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
           <button type="submit" class="btn btn--primary">Envoyer le message</button>
           <p class="form-note">Les informations envoyées servent uniquement à répondre à votre message.</p>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>

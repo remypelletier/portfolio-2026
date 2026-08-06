@@ -107,12 +107,6 @@ function initContactForm() {
       return;
     }
 
-    const turnstileToken = form.querySelector("[name=cf-turnstile-response]")?.value;
-    if (!turnstileToken) {
-      status.textContent = "Merci de valider la vérification anti-robot.";
-      return;
-    }
-
     submitBtn.disabled = true;
     status.textContent = "Envoi en cours...";
 
@@ -124,7 +118,7 @@ function initContactForm() {
           name: form.name.value,
           email: form.email.value,
           message: form.message.value,
-          turnstileToken,
+          website: form.website.value,
         }),
       });
 
@@ -135,7 +129,6 @@ function initContactForm() {
     } catch (error) {
       status.textContent = "Une erreur est survenue, réessayez ou écrivez-moi directement par email.";
     } finally {
-      window.turnstile?.reset();
       submitBtn.disabled = false;
     }
   });
