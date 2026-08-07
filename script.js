@@ -16,9 +16,8 @@ function initThemeToggle() {
   const root = document.documentElement;
   const storageKey = "portfolio-theme";
 
-  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
   const savedTheme = localStorage.getItem(storageKey);
-  const initialTheme = root.getAttribute("data-theme") || savedTheme || (prefersLight ? "light" : "dark");
+  const initialTheme = root.getAttribute("data-theme") || savedTheme || "dark";
 
   applyTheme(initialTheme);
 
