@@ -1,16 +1,48 @@
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+  "Content-Security-Policy": [
+    "default-src 'self'",
+    // Hash of the inline theme-init script in index.html — recompute it if that script's content changes.
+    "script-src 'self' 'sha256-CKBPwZZoSLPGBpUNdjnBNvyoCwRMswSuOBnPq4w9834='",
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self'",
+    "connect-src 'self'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+  ].join("; "),
+};
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (request.method === "POST" && url.pathname === "/api/contact") {
-      return handleContact(request, env);
-    }
+    const response =
+      request.method === "POST" && url.pathname === "/api/contact"
+        ? await handleContact(request, env)
+        : await env.ASSETS.fetch(request);
 
-    return env.ASSETS.fetch(request);
+    return withSecurityHeaders(response);
   },
 };
 
+function withSecurityHeaders(response) {
+  const headers = new Headers(response.headers);
+  for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+    headers.set(key, value);
+  }
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
 async function handleContact(request, env) {
+  if (!isTrustedOrigin(request)) {
+    return jsonResponse({ error: "invalid-origin" }, 403);
+  }
+
   let body;
   try {
     body = await request.json();
@@ -48,6 +80,17 @@ function jsonResponse(data, status) {
     status,
     headers: { "Content-Type": "application/json" },
   });
+}
+
+function isTrustedOrigin(request) {
+  const origin = request.headers.get("Origin");
+  if (!origin) return false;
+
+  try {
+    return new URL(origin).host === new URL(request.url).host;
+  } catch {
+    return false;
+  }
 }
 
 function isNonEmptyString(value) {
