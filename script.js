@@ -16,7 +16,12 @@ function initThemeToggle() {
   const root = document.documentElement;
   const storageKey = "portfolio-theme";
 
-  const savedTheme = localStorage.getItem(storageKey);
+  let savedTheme = null;
+  try {
+    savedTheme = localStorage.getItem(storageKey);
+  } catch {
+    savedTheme = null;
+  }
   const initialTheme = root.getAttribute("data-theme") || savedTheme || "dark";
 
   applyTheme(initialTheme);
@@ -25,7 +30,11 @@ function initThemeToggle() {
     const currentTheme = root.getAttribute("data-theme") || "dark";
     const nextTheme = currentTheme === "dark" ? "light" : "dark";
     applyTheme(nextTheme);
-    localStorage.setItem(storageKey, nextTheme);
+    try {
+      localStorage.setItem(storageKey, nextTheme);
+    } catch {
+      // stockage indisponible (navigation privée stricte) : le thème reste actif pour la session
+    }
   });
 
   function applyTheme(theme) {
@@ -70,7 +79,7 @@ function initActiveLinkOnScroll() {
         });
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0, rootMargin: "-50% 0px -50% 0px" }
   );
 
   sections.forEach((section) => observer.observe(section));
@@ -329,7 +338,7 @@ function initProjectModals() {
 
   function openProject(id) {
     const data = projectsData[id];
-    if (!data || dialog.open) return;
+    if (!data) return;
 
     gallery.load(data.images, id);
 
@@ -375,8 +384,10 @@ function initProjectModals() {
       linksEl.appendChild(a);
     });
 
-    dialog.showModal();
-    document.body.style.overflow = "hidden";
+    if (!dialog.open) {
+      dialog.showModal();
+      document.body.style.overflow = "hidden";
+    }
   }
 
   document.querySelectorAll("[data-project]").forEach((el) => {
@@ -533,13 +544,14 @@ function initHeroParallaxBlob() {
   if (!section || !parallax || !avatar) return;
 
   const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!hasFinePointer || prefersReducedMotion) return;
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!hasFinePointer) return;
 
   const maxOffset = 14;
   let frameRequest = null;
 
   section.addEventListener("pointermove", (event) => {
+    if (reducedMotionQuery.matches) return;
     const sectionRect = section.getBoundingClientRect();
     const pointerX = event.clientX - sectionRect.left;
     const pointerY = event.clientY - sectionRect.top;
@@ -574,8 +586,8 @@ function initHeroCursorDot() {
   if (!section || !dot) return;
 
   const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!hasFinePointer || prefersReducedMotion) return;
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!hasFinePointer) return;
 
   section.classList.add("has-custom-cursor");
 
@@ -606,6 +618,7 @@ function initHeroCursorDot() {
   });
 
   section.addEventListener("pointerenter", (event) => {
+    if (reducedMotionQuery.matches) return;
     const rect = section.getBoundingClientRect();
     currentX = targetX = event.clientX - rect.left;
     currentY = targetY = event.clientY - rect.top;
@@ -660,7 +673,7 @@ function initHeroShapeMorph() {
     return planeIndex.get(key);
   }
 
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   let index = 0;
   let distances = shapes[0].support.slice();
   let faces = buildSolid(distances);
@@ -673,6 +686,8 @@ function initHeroShapeMorph() {
   let size = 0;
   let lastFrame = 0;
   let sinceChange = 0;
+  let isRunning = false;
+  let isVisible = true;
 
   resize();
   new ResizeObserver(resize).observe(canvas);
@@ -682,6 +697,27 @@ function initHeroShapeMorph() {
     render();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
+  new IntersectionObserver((entries) => {
+    isVisible = entries[entries.length - 1].isIntersecting;
+    syncLoop();
+  }).observe(canvas);
+
+  reducedMotionQuery.addEventListener("change", () => {
+    if (reducedMotionQuery.matches) render();
+    syncLoop();
+  });
+
+  function syncLoop() {
+    const shouldRun = isVisible && !reducedMotionQuery.matches;
+    if (shouldRun && !isRunning) {
+      isRunning = true;
+      lastFrame = 0;
+      requestAnimationFrame(loop);
+    } else if (!shouldRun) {
+      isRunning = false;
+    }
+  }
+
   function advance() {
     index = (index + 1) % shapes.length;
     morphFrom = distances.slice();
@@ -689,13 +725,14 @@ function initHeroShapeMorph() {
     morphStart = performance.now();
   }
 
-  if (prefersReducedMotion) {
+  if (reducedMotionQuery.matches) {
     render();
   } else {
-    requestAnimationFrame(loop);
+    syncLoop();
   }
 
   function loop(now) {
+    if (!isRunning) return;
     const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 16;
     lastFrame = now;
 
@@ -973,13 +1010,13 @@ function initHeroClickParticles() {
   const section = document.getElementById("accueil");
   if (!section) return;
 
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReducedMotion) return;
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const colors = ["var(--color-accent)", "var(--color-accent-strong)"];
   const particleCount = 10;
 
   section.addEventListener("click", (event) => {
+    if (reducedMotionQuery.matches) return;
     const rect = section.getBoundingClientRect();
     const originX = event.clientX - rect.left;
     const originY = event.clientY - rect.top;
