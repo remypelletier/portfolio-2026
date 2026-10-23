@@ -68,7 +68,8 @@ async function handleContact(request, env) {
 
   try {
     await sendContactEmail(env, { name, email, message });
-  } catch {
+  } catch (error) {
+    console.error("contact: send failed", error.message);
     return jsonResponse({ error: "send-failed" }, 502);
   }
 
@@ -118,6 +119,7 @@ async function sendContactEmail(env, { name, email, message }) {
   });
 
   if (!response.ok) {
-    throw new Error(`resend-error-${response.status}`);
+    const detail = await response.text().catch(() => "");
+    throw new Error(`resend-error-${response.status} ${detail.slice(0, 300)}`);
   }
 }
