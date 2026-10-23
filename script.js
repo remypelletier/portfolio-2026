@@ -199,14 +199,15 @@ const projectsData = {
       },
     ],
     highlights: [
-      "Recherche géographique centralisée via une RPC PostGIS",
-      "Filtres par équipement (aspirateur, rouleaux, karcher, souffleur…)",
-      "Contributions communautaires : avis, signalements, nouveaux points",
-      "Sécurité : politiques RLS et limitation des requêtes API",
-      "Conformité RGPD : gestion du consentement et des données personnelles",
+      "Recherche de proximité PostGIS : filtres par équipement (aspirateur, rouleaux, karcher, souffleur…) appliqués directement en SQL",
+      "Contributions communautaires modérées : avis, signalements, nouvelles stations, e-mail à l'auteur à la validation",
+      "Portail propriétaire : un gérant revendique sa station via un lien d'invitation et suit ses statistiques",
+      "Authentification Supabase (e-mail ou Google) : chaque contribution est rattachée à son auteur, le backoffice est réservé aux administrateurs",
+      "Droits vérifiés jusque dans la base : politiques RLS sur l'identité et le rôle, et accès admin contrôlé à la fois dans le middleware et côté serveur",
+      "Analytics en deux couches : produit anonyme pour tous (exemption CNIL), PostHog uniquement après consentement",
       "SEO : pages optimisées pour le référencement naturel des stations",
       "Backoffice interne pour administrer le contenu et suivre les statistiques d'usage",
-      "Tests Vitest, CI/CD GitHub Actions → Vercel, observabilité Sentry et PostHog",
+      "Monorepo pnpm/Turborepo avec types partagés entre web et mobile, Vitest, CI GitHub Actions sur Vercel, Sentry",
     ],
     challenge:
       "Constituer puis fiabiliser un référentiel national. Une extension Chrome dédiée accélère la vérification des équipements, station par station. Une application Expo / React Native est en conception, après stabilisation du produit web.",
@@ -589,7 +590,11 @@ function initHeroCursorDot() {
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (!hasFinePointer) return;
 
-  section.classList.add("has-custom-cursor");
+  function syncCustomCursor() {
+    section.classList.toggle("has-custom-cursor", !reducedMotionQuery.matches);
+  }
+  syncCustomCursor();
+  reducedMotionQuery.addEventListener("change", syncCustomCursor);
 
   let targetX = 0;
   let targetY = 0;

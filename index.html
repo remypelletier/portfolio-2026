@@ -59,7 +59,9 @@
 
       <div class="section__content hero-inner">
         <div class="hero-text">
-          <img class="hero-photo" src="/assets/projects/splashmap/profil.jpeg" alt="Photo de Rémy Pelletier" width="400" height="400" loading="eager">
+          <div class="hero-photo">
+            <img src="/assets/projects/splashmap/profil.jpeg" alt="Photo de Rémy Pelletier" width="400" height="400" loading="eager">
+          </div>
           <p class="hero-eyebrow">Développeur full-stack - Nantes</p>
           <h1 class="hero-title">Rémy Pelletier</h1>
           <p class="hero-subtitle">Je conçois, développe et maintiens des applications web, de l'idée à la mise en production.</p>
@@ -141,12 +143,32 @@
             <span class="marquee-label">PHP</span>
           </div>
           <div class="marquee-item">
-            <div class="marquee-icon"><img src="/icons/joomla.svg" alt="Joomla" width="36" height="36" loading="lazy"></div>
-            <span class="marquee-label">Joomla</span>
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/symfony.svg" alt="Symfony" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Symfony</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/laravel.svg" alt="Laravel" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Laravel</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/vscode.svg" alt="VS Code" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">VS Code</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/glpi.svg" alt="GLPI" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">GLPI</span>
           </div>
           <div class="marquee-item">
             <div class="marquee-icon marquee-icon--invert"><img src="/icons/expo.svg" alt="Expo" width="36" height="36" loading="lazy"></div>
             <span class="marquee-label">Expo</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/figma.svg" alt="Figma" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Figma</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/notion.svg" alt="Notion" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Notion</span>
           </div>
         </div>
         <div class="marquee-track" aria-hidden="true">
@@ -207,12 +229,32 @@
             <span class="marquee-label">PHP</span>
           </div>
           <div class="marquee-item">
-            <div class="marquee-icon"><img src="/icons/joomla.svg" alt="" width="36" height="36" loading="lazy"></div>
-            <span class="marquee-label">Joomla</span>
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/symfony.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Symfony</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/laravel.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Laravel</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/vscode.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">VS Code</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/glpi.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">GLPI</span>
           </div>
           <div class="marquee-item">
             <div class="marquee-icon marquee-icon--invert"><img src="/icons/expo.svg" alt="" width="36" height="36" loading="lazy"></div>
             <span class="marquee-label">Expo</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon"><img src="/icons/figma.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Figma</span>
+          </div>
+          <div class="marquee-item">
+            <div class="marquee-icon marquee-icon--invert"><img src="/icons/notion.svg" alt="" width="36" height="36" loading="lazy"></div>
+            <span class="marquee-label">Notion</span>
           </div>
         </div>
     </div>
@@ -333,15 +375,15 @@
             <ul class="featured-project__highlights">
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
-                Recherche géographique centralisée via une RPC PostGIS
+                Recherche de stations à proximité PostGIS : filtres par équipement appliqués directement en SQL
               </li>
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
-                Système de contributions communautaires : avis, signalements, nouveaux points
+                Système de contributions communautaires : avis, signalements, nouvelles stations, modération et validation par back-office 
               </li>
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
-                Sécurité : politiques RLS et limitation des requêtes API
+                Sécurité : aucun client ne lit la base, tout passe par l'API, RLS et rate limiting
               </li>
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg>
@@ -390,8 +432,8 @@
             <span class="project-card__type">Groupe Hautier · 60 % du temps</span>
             <h3 class="project-title">Intranet métier React / Node.js</h3>
             <p class="project-desc">
-              Création de l'outil central du groupe - gestion de parc, sinistres et données
-              de transport, modules de comptabilité, gestion de document - utilisé par environ 40 personnes dans 6 agences en France.
+              Création de l'outil central du groupe : gestion de parc, sinistres et données
+              de transport, modules de comptabilité, gestion de document utilisé par environ 40 personnes dans 6 agences en France.
             </p>
             <div class="project-card__stack">
               <span class="tech-tag">React</span>
@@ -707,15 +749,15 @@
         <form class="contact-form" id="contactForm" action="/api/contact" method="POST" novalidate>
           <div class="form-group">
             <label for="name">Nom</label>
-            <input type="text" id="name" name="name" required autocomplete="name">
+            <input type="text" id="name" name="name" required maxlength="200" autocomplete="name">
           </div>
           <div class="form-group">
             <label for="email">Courriel</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
+            <input type="email" id="email" name="email" required maxlength="254" autocomplete="email">
           </div>
           <div class="form-group">
             <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+            <textarea id="message" name="message" rows="5" required maxlength="5000"></textarea>
           </div>
           <div class="form-honeypot" aria-hidden="true">
             <label for="website">Site web</label>
